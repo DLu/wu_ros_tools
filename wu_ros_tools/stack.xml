@@ -4,6 +4,8 @@
   <license>BSD</license>  
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/wu_ros_tools</url>
-  <depend stack="ros" />
+  <depend stack="ros" /> <!-- roslib, rospack -->
+  <depend stack="ros_comm" /> <!-- rosbag, rosnode, rospy, rostopic, rosgraph -->
+  <depend stack="rx" /> <!-- xdot -->
 
 </stack>
