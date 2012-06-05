@@ -1,0 +1,16 @@
+<package>
+  <description brief="rosbaglive">
+
+     rosbaglive
+
+  </description>
+  <author>David V. Lu!!</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/rosbaglive</url>
+  <depend package="rospy"/>
+  <depend package="rosbag"/>
+
+</package>
+
+

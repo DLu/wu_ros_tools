@@ -1,0 +1,9 @@
+<stack>
+  <description brief="wu_ros_tools">wu_ros_tools</description>
+  <author>Maintained by David!!</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/wu_ros_tools</url>
+  <depend stack="ros" />
+
+</stack>

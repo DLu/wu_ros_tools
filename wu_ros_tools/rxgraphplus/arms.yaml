@@ -1,0 +1,4 @@
+arms:
+  - /tuck_arms_action
+  - /l_arm_controller/joint_trajectory_generator
+  - /r_arm_controller/joint_trajectory_generator

@@ -1,0 +1,11 @@
+A:
+  - /talker
+  - /chatter
+B:
+  C:
+     - /listener1
+  D:
+     - /listener0
+  topics:
+     - /chatter
+

@@ -1,0 +1,63 @@
+pr2:
+  sensors:
+    cameras:
+      - /l_forearm_cam
+      - /l_forearm_cam/image_proc
+      - /l_forearm_cam_trigger_spawner
+      - /r_forearm_cam
+      - /r_forearm_cam/image_proc
+      - /r_forearm_cam_trigger_spawner
+      - /wide_stereo/wide_stereo_proc
+      - /wide_stereo_both
+      - /wide_stereo_left
+      - /wide_stereo_right
+      - /narrow_stereo/narrow_stereo_proc
+      - /narrow_stereo_both
+      - /narrow_stereo_left
+      - /narrow_stereo_right
+      - /narrow_stereo_textured/narrow_stereo_textured_proc
+      - /prosilica_driver
+      - /camera_synchronizer_node
+      - /spawner_camera_synchronizer
+    lasers:
+      - /base_hokuyo_node
+      - /tilt_hokuyo_node
+    imu:
+      - /imu_node
+      - /imu_monitor
+  controllers:
+    - /torso_controller/position_joint_action_node
+    - /l_gripper_controller/gripper_action_node
+    - /r_gripper_controller/gripper_action_node
+    - /head_traj_controller/point_head_action
+    - /default_controllers_spawner
+  computer:
+    - /ddwrt_diag
+    - /network_detector
+    - /ntp_c1
+    - /ntp_c2
+    - /ocean_server
+    - /power_board
+    - /power_monitor
+    - /realtime_cpu_monitor
+    - /realtime_hd_monitor
+    - /two_cpu_monitor
+    - /two_hd_monitor
+    - /wifi_ddwrt
+  tools:
+    - /sound_play
+    - /joy
+    - /robot_state_publisher
+    - /calibrate_pr2
+    - /robot_pose_ekf
+    - /pr2_run_stop_auto_restart
+  web:
+    - /users_online
+    - /launchman
+    - /rosweb
+  realtime:
+    - /realtime_loop
+    - /motor_trace_logger
+  diagnostics:
+    - /pr2_dashboard_aggregator
+    - /pr2_mechanism_diagnostics

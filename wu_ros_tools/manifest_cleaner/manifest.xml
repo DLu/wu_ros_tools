@@ -1,0 +1,16 @@
+<package>
+  <description brief="manifest_cleaner">
+
+     manifest_cleaner
+
+  </description>
+  <author>David V. Lu!!</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/manifest_cleaner</url>
+  <depend package="rospy"/>
+  <depend package="rospack"/>
+
+</package>
+
+
