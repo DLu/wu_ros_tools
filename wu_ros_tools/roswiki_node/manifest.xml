@@ -1,0 +1,13 @@
+<package>
+  <description brief="Tool for generating ROS Wiki documentation">
+    Creates CS/NodeAPI clearsilver documentation from source code files. Typical usage: rosrun roswiki_node roswiki src/*
+  </description>
+  <author>David V. Lu!!</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/roswiki_node</url>
+  <depend package="rospy"/>
+
+</package>
+
+
