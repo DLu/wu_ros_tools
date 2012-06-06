@@ -55,6 +55,8 @@ urls = collections.defaultdict(int)
 packages = []
 stacks = []
 
+check_urls = '-web' in sys.argv
+
 for root, subFolders, files in os.walk(sys.argv[1]):
     if 'manifest.xml' in files:
         is_package = True
@@ -107,8 +109,10 @@ for root, subFolders, files in os.walk(sys.argv[1]):
 
     url = get_text(manifest, 'url')
     if url is not None:
-        url = get_code(url)
-#        url = 'specified'
+        if check_urls:
+            url = get_code(url)
+        else:
+            url = 'specified'
     node[ 'url' ] = url
     urls[url] += 1
 
@@ -120,6 +124,8 @@ for root, subFolders, files in os.walk(sys.argv[1]):
 lengths = collections.defaultdict(int)
 for d in packages + stacks:
     for a,b in d.iteritems():
+        if type(b)==type(u''):
+            b = b.encode('ascii', 'replace')
         if len(str(b)) > lengths[a]:
             lengths[a] = len(str(b))
         if len(str(a)) > lengths[a]:
@@ -153,7 +159,15 @@ if len(packages)>0:
 
     for d in packages:
         for field in fields:
-            print ("%%-%ds"%lengths[field])%str(d[field]),
+            val = d[field]
+            if type(val)==type(u''):
+                val = val.encode('ascii', 'replace')
+                print val, 
+                n = lengths[field] - len(val)-1
+                if n>0:
+                    print " "*n,
+            else:
+                print ("%%-%ds"%lengths[field])%str(val),
         print
 
 report('Descriptions', descriptions)
@@ -165,6 +179,7 @@ print
 name = "Authors"
 print "=" * 5, name, "="*(40-len(name))
 for a,c in sorted(authors.items()):
+    a = a.encode('ascii', 'replace')
     print "%s %4d"%(a.strip(),len(c))
     print '   ',
     for (i,b) in enumerate(c):
