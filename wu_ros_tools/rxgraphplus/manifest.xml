@@ -1,13 +1,14 @@
 <package>
-  <description brief="rxgraph">
+  <description brief="Modification of rxgraph">
 
      rxgraph is a command-line tool for visualizing a ROS computation graph. The rxgraph is a new package in ROS 1.1 that provides an updated version of the rxgraph tool that was originally distributed in the rosgraph package.
 
+     This forked version allows for grouping nodes into clusters. 
+
   </description>
-  <author>Ken Conley</author>
+  <author>Ken Conley and David V. Lu!!</author>
   <license>BSD</license>
-  <review status="doc reviewed" notes="reviewed as part of rosgraph"/>
-  <url>http://ros.org/wiki/rxgraph</url>
+  <url>http://ros.org/wiki/rxgraphplus</url>
 
   <depend package="rosgraph"/>
   <depend package="xdot"/>

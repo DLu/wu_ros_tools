@@ -43,8 +43,20 @@ def report(name, rdict):
     for (value, count) in sorted_report:
         print value, count
     
+def extract_authors(s):
+    authors = []
+    if 'Maintained by' in s:
+        i = s.index('Maintained by')
+        s = s[:i] + s[i+1+len('Maintained by'):]
+   
+    for a in s.split(','):
+        for b in a.split('and'):
+            if '/' in b:
+                b = b[:b.index('/')]
+            authors.append(b.strip())
+    return authors
 
-
+#diff mainpage.dox ../pr2_sith/mainpage.dox | grep '^>'
 
 authors = collections.defaultdict(list)
 descriptions = collections.defaultdict(int)
@@ -54,6 +66,12 @@ licenses = collections.defaultdict(int)
 urls = collections.defaultdict(int)
 packages = []
 stacks = []
+
+if len(sys.argv)<=1 or '-h' in sys.argv:
+    print "Need to specify a directory to search through as the first parameter"
+    print "    [use the -web flag to ping the address "
+    print "     specified in the URL tag to see if it exists ] " 
+    exit(1)
 
 check_urls = '-web' in sys.argv
 
@@ -79,7 +97,8 @@ for root, subFolders, files in os.walk(sys.argv[1]):
     node = {'name': package}
 
     author = get_text(manifest, 'author')
-    authors[author].append(package)   
+    for a_name in extract_authors(author):
+        authors[a_name].append(package)   
     node['author'] = author 
 
     description_xml = get_element(manifest, 'description')

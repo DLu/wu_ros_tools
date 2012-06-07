@@ -1,8 +1,9 @@
 <stack>
-  <description brief="wu_ros_tools">wu_ros_tools</description>
-  <author>Maintained by David!!</author>
+  <description brief="WashU ROS Tools">
+    A collection of tools for making a variety of generic ROS-related tasks easier. 
+  </description>
+  <author>Maintained by David V. Lu!!</author>
   <license>BSD</license>  
-  <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/wu_ros_tools</url>
   <depend stack="ros" /> <!-- roslib, rospack -->
   <depend stack="ros_comm" /> <!-- rosbag, rosnode, rospy, rostopic, rosgraph -->

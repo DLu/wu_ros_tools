@@ -1,12 +1,9 @@
 <package>
-  <description brief="rosbaglive">
-
-     rosbaglive
-
+  <description brief="Modification of rosbag play">
+    Tool for playing rosbags as though they were happening NOW.
   </description>
   <author>David V. Lu!!</author>
   <license>BSD</license>
-  <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/rosbaglive</url>
   <depend package="rospy"/>
   <depend package="rosbag"/>
