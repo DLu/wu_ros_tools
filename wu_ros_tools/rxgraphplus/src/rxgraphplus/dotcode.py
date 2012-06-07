@@ -190,7 +190,6 @@ def generate_dotcode(g, ns_filter, graph_mode, orientation, config, quiet=False)
     @return: dotcode generated from graph singleton
     @rtype: str
     """
-    #print "generate_dotcode", graph_mode
     if ns_filter:
         name_filter = ns_filter[:-1]
     
@@ -282,7 +281,7 @@ def generate_dotcode(g, ns_filter, graph_mode, orientation, config, quiet=False)
         start = node_map[e.start]
         end = node_map[e.end]
 
-        if start['branch']==end['branch']:
+        if start['branch']==end['branch'] and end['branch'] is not None:
             continue
 
         #if 'ignore' in start['groups'] or 'ignore' in end['groups']:
