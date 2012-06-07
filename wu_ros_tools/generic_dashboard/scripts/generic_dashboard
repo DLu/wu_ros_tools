@@ -33,28 +33,9 @@
 
 import roslib; roslib.load_manifest('generic_dashboard')
 
-WXVER = '2.8'
-import wxversion
-if wxversion.checkInstalled(WXVER):
-  wxversion.select(WXVER)
-else:
-  print >> sys.stderr, "This application requires wxPython version %s"%(WXVER)
-  sys.exit(1)
-
-import wx
 from generic_dashboard import *
-icons_path = path.join(roslib.packages.get_pkg_dir('generic_dashboard'), "icons/")
-
-app = wx.App()
 frame = GenericFrame()
-comps = []
-"""
-for i in range(15):
-    comps.append( StatusControl(frame, wx.ID_ANY, icons_path, "diag", True, {'stale': 'grey', 'ok': 'green'}, 'stale' ) )
-    if i%2==0:
-        comps[-1].set_status('stale')
-    else:
-        comps[-1].set_status('ok')"""
-frame.init( [DiagnosticsControl(frame)])
-frame.Show()
-app.MainLoop()
+frame.init( [DiagnosticsControl(frame), RosoutControl(frame)])
+frame.start()
+
+
