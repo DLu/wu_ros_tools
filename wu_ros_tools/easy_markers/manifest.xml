@@ -1,0 +1,18 @@
+<package>
+  <description brief="easy_markers">
+
+     easy_markers
+
+  </description>
+  <author>David V. Lu!!</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/easy_markers</url>
+  <depend package="rospy"/>
+  <depend package="visualization_msgs"/>
+  <depend package="geometry_msgs"/>
+  <depend package="tf"/>
+  <depend package="interactive_markers"/>
+</package>
+
+
