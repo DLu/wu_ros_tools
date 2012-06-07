@@ -84,6 +84,7 @@ class DiagnosticsControl(StatusControl):
       laptop_battery_status = {}
       breaker_status = {}
       op_mode = None
+
       for status in msg.status:
           if status.name == "/Power System/Battery":
               for value in status.values:
@@ -98,6 +99,7 @@ class DiagnosticsControl(StatusControl):
               for value in status.values:
                   breaker_status[value.key]=value.value
 
+      """
       if (battery_status):
         self._power_state_ctrl.set_power_state(battery_status)
       else:
@@ -124,7 +126,7 @@ class DiagnosticsControl(StatusControl):
 
       if (breaker_status):
           [ctrl.set_breaker_state(breaker_status) for ctrl in self._breaker_ctrls]
-
+        """
 
     def update(self):
       level = self._diagnostics_frame._diagnostics_panel.get_top_level_state()

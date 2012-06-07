@@ -34,8 +34,11 @@
 import roslib; roslib.load_manifest('generic_dashboard')
 
 from generic_dashboard import *
+
+icons_path = path.join(roslib.packages.get_pkg_dir('pr2_dashboard'), "icons/")
+
 frame = GenericFrame()
-frame.init( [DiagnosticsControl(frame), RosoutControl(frame)])
+frame.init( [DiagnosticsControl(frame), RosoutControl(frame), PowerControl(frame, icons_path=icons_path)])
 frame.start()
 
 
