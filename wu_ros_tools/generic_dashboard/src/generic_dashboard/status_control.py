@@ -35,10 +35,11 @@ import roslib; roslib.load_manifest('generic_dashboard')
 import wx
 
 from os import path
+from generic_control import GenericControl
 
-class StatusControl(wx.Window):
-  def __init__(self, parent, id, icons_path, base_name, toggleable, states, default_state):
-    wx.Window.__init__(self, parent, id)
+class StatusControl(GenericControl):
+  def __init__(self, parent, icons_path, base_name, toggleable, states, default_state):
+    GenericControl.__init__(self, parent)
     self.SetSize(wx.Size(32, 32))
 
     self._states = states

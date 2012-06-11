@@ -41,8 +41,6 @@ else:
   sys.exit(1)
 
 import wx
-
-import wx
 import wx.aui
 import wx.py.shell
 import rxtools
@@ -54,7 +52,9 @@ import std_msgs.msg
 import std_srvs.srv
 import rospy
 from roslib import rosenv
-
+from diagnostics_control import DiagnosticsControl
+import diagnostic_msgs.msg
+import collections
 from os import path
 import threading
 
@@ -73,9 +73,14 @@ class GenericFrame(wx.Frame):
             rxtools.initRoscpp("dashboard_cpp", anonymous=True)
         except AttributeError:
             pass
+
+        self._dashboard_agg_sub = rospy.Subscriber('diagnostics_agg', diagnostic_msgs.msg.DiagnosticArray, self.dashboard_callback)
+        self._dashboard_message = None
+        self._last_dashboard_message_time = 0.0
         
         self.SetTitle('%s (%s)'%(title, rosenv.get_master_uri()))
         self._app = app
+        self._triggers = collections.defaultdict(list)
 
     def init(self, components):
         sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -109,7 +114,15 @@ class GenericFrame(wx.Frame):
         elif type(components)==type([]):
             for component in components:
                 parent.Add(component, 0)
-                self._components_list.append(component)
+                self.add(component)
+
+    def add(self, component):
+        self._components_list.append(component)
+        if type(component) == DiagnosticsControl:
+            self._triggers['*'].append(component)
+        elif component.trigger:
+            self._triggers[ component.trigger ].append( component )
+    
 
     def start(self):
         self.Show()
@@ -119,12 +132,45 @@ class GenericFrame(wx.Frame):
         self._dashboard_agg_sub.unregister()
         
     def on_timer(self, evt):
+        if (rospy.get_time() - self._last_dashboard_message_time > 5.0):
+            for component in self._components_list:
+                component.set_status('stale')
+
         for component in self._components_list:
             component.update()
         
         if (rospy.is_shutdown()):
            self.Close()
 
+    def dashboard_callback(self, msg):
+        wx.CallAfter(self.new_dashboard_message, msg)
+      
+    def new_dashboard_message(self, msg):
+        self._dashboard_message = msg
+        self._last_dashboard_message_time = rospy.get_time()
+
+        for status in msg.status:
+            path = status.name.split(':')[0]
+            if path in self._triggers:
+                for component in self._triggers[path]:
+                    if component.callback:
+                        component.set_data( component.callback(status) )
+        """
+        for status in msg.status:
+          if status.name == "/Power System/Battery":
+              for value in status.values:
+                  battery_status[value.key]=value.value
+          if status.name == "/Power System/Laptop Battery":
+              for value in status.values:
+                  laptop_battery_status[value.key]=value.value
+          if status.name == "/Mode/Operating Mode":
+              op_mode=status.message
+          if status.name == "/Digital IO/Digital Outputs":
+              #print "got digital IO"
+              for value in status.values:
+                  breaker_status[value.key]=value.value"""
+
+    """
     def on_motors_clicked(self, evt):
       menu = wx.Menu()
       menu.Bind(wx.EVT_MENU, self.on_passive_mode, menu.Append(wx.ID_ANY, "Passive Mode"))
@@ -155,6 +201,8 @@ class GenericFrame(wx.Frame):
       except rospy.ServiceException, e:
         wx.MessageBox("Failed to put the turtlebot in full mode: service call failed with error: %s"%(e), "Error", wx.OK|wx.ICON_ERROR)
         
+    """
+
     def load_config(self):
       # Load our window options
       (x, y) = self.GetPositionTuple()

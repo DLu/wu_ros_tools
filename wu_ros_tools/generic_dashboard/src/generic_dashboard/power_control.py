@@ -34,12 +34,12 @@ import roslib; roslib.load_manifest('generic_dashboard')
 import rospy
 import wx
 from os import path
-
-class PowerControl(wx.Window):
-  def __init__(self, parent, id=wx.ID_ANY):
-    wx.Window.__init__(self, parent, id, wx.DefaultPosition, wx.Size(60, 32))
+from generic_control import GenericControl
+class PowerControl(GenericControl):
+  def __init__(self, parent, trigger=None, callback=None):
+    GenericControl.__init__(self, parent, trigger=trigger, callback=callback)
     
-    self._pct = .55
+    self._pct = 0.
     self._time_remaining = rospy.Duration(0)
     self._ac_present = 0
 
@@ -95,7 +95,8 @@ class PowerControl(wx.Window):
                     self.GetSize().GetHeight() / 2.0 - (self._plug_bitmap.GetHeight() / 2.0))
       
       
-  def set_power_state(self, plugged_in, pct, time_remaining=rospy.Duration(0)):
+  def set_data(self, data):
+    (plugged_in, pct, time_remaining) = data
     last_pct = self._pct
     last_plugged_in = self._plugged_in
     last_time_remaining = self._time_remaining
@@ -120,5 +121,3 @@ class PowerControl(wx.Window):
     
     self.Refresh()
 
-  def update(self):
-        None

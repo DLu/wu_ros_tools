@@ -38,7 +38,8 @@ import wx
 from status_control import *
 from os import path
 import rxtools.cppwidgets as rxtools
-    
+from generic_control import GenericControl
+
 class RosoutFrame(wx.Frame):
   def __init__(self, parent, id, title):
     wx.Frame.__init__(self, parent, id, title, wx.DefaultPosition, wx.Size(800, 600))
@@ -55,7 +56,7 @@ class RosoutFrame(wx.Frame):
 
 class RosoutControl(StatusControl):
     def __init__(self, parent):
-        StatusControl.__init__(self, parent, wx.ID_ANY, path.join(roslib.packages.get_pkg_dir('generic_dashboard'), "icons/"), 
+        StatusControl.__init__(self, parent, path.join(roslib.packages.get_pkg_dir('generic_dashboard'), "icons/"), 
                                     'rosout', True, {'stale': 'grey', 'ok': 'green', 'warn': 'yellow', 'error': 'red'}, 'stale')
         self.SetToolTip(wx.ToolTip("Rosout"))
 
