@@ -43,7 +43,7 @@ def report(name, rdict):
     for (value, count) in sorted_report:
         print value, count
     
-def extract_authors(s):
+def extract_items(s, split=False):
     authors = []
     if 'Maintained by' in s:
         i = s.index('Maintained by')
@@ -51,7 +51,7 @@ def extract_authors(s):
    
     for a in s.split(','):
         for b in a.split('and'):
-            if '/' in b:
+            if split and '/' in b:
                 b = b[:b.index('/')]
             authors.append(b.strip())
     return authors
@@ -97,7 +97,7 @@ for root, subFolders, files in os.walk(sys.argv[1]):
     node = {'name': package}
 
     author = get_text(manifest, 'author')
-    for a_name in extract_authors(author):
+    for a_name in extract_items(author, True):
         authors[a_name].append(package)   
     node['author'] = author 
 
@@ -124,7 +124,8 @@ for root, subFolders, files in os.walk(sys.argv[1]):
      
     license = get_text(manifest, 'license')
     node[ 'license' ] = license
-    licenses[license] += 1
+    for lic in extract_items(license):
+        licenses[lic] += 1
 
     url = get_text(manifest, 'url')
     if url is not None:
