@@ -31,18 +31,19 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 import roslib; roslib.load_manifest('generic_dashboard')
-
+import rospy
 import wx
 from os import path
 
 class PowerControl(wx.Window):
-  def __init__(self, parent, id=wx.ID_ANY, icons_path=""):
+  def __init__(self, parent, id=wx.ID_ANY):
     wx.Window.__init__(self, parent, id, wx.DefaultPosition, wx.Size(60, 32))
     
-    self._power_consumption = 0.0
-    self._pct = 0
-    self._time_remaining = roslib.rostime.Duration(0)
+    self._pct = .55
+    self._time_remaining = rospy.Duration(0)
     self._ac_present = 0
+
+    icons_path = path.join(roslib.packages.get_pkg_dir('generic_dashboard'), "icons/")
     
     self._left_bitmap = wx.Bitmap(path.join(icons_path, "battery-minus.png"), wx.BITMAP_TYPE_PNG)
     self._right_bitmap = wx.Bitmap(path.join(icons_path, "battery-plus.png"), wx.BITMAP_TYPE_PNG)
@@ -94,15 +95,14 @@ class PowerControl(wx.Window):
                     self.GetSize().GetHeight() / 2.0 - (self._plug_bitmap.GetHeight() / 2.0))
       
       
-  def set_power_state(self, msg):
+  def set_power_state(self, plugged_in, pct, time_remaining=rospy.Duration(0)):
     last_pct = self._pct
     last_plugged_in = self._plugged_in
     last_time_remaining = self._time_remaining
       
-    self._power_consumption = msg.power_consumption
-    self._time_remaining = msg.time_remaining
-    self._pct = msg.relative_capacity / 100.0
-    self._plugged_in = msg.AC_present
+    self._pct = pct
+    self._plugged_in = plugged_in
+    self._time_remaining = time_remaining
     
     if (last_pct != self._pct or last_plugged_in != self._plugged_in or last_time_remaining != self._time_remaining):
         drain_str = "remaining"
@@ -111,12 +111,12 @@ class PowerControl(wx.Window):
         self.SetToolTip(wx.ToolTip("Battery: %.2f%% (%d minutes %s)"%(self._pct * 100.0, self._time_remaining.to_sec()/60.0, drain_str)))
         self.Refresh()
     
-  def set_stale(self):
-    self._plugged_in = 0
-    self._pct = 0
-    self._time_remaining = roslib.rostime.Duration(0)
-    self._power_consumption = 0
-    self.SetToolTip(wx.ToolTip("Battery: Stale"))
+  def set_status(self, status):
+    if status=='stale':
+        self._plugged_in = 0
+        self._pct = 0
+        self._time_remaining = rospy.Duration(0)
+        self.SetToolTip(wx.ToolTip("Battery: Stale"))
     
     self.Refresh()
 
