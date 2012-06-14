@@ -216,7 +216,8 @@ def generate_dotcode(g, ns_filter, graph_mode, orientation, config, quiet=False)
              graph_mode == NODE_TOPIC_ALL_GRAPH:
         for node in g.nt_nodes:
             if not do_filter or (node[1:].startswith(ns_filter) or node[1:] == name_filter):
-                node_map[node] = {'name': node, 'msg': True, 'branch': None}
+                node = node.strip()
+                node_map[node] = {'name': node, 'msg': True, 'branch': None, 'badness': 0}
 
     if quiet:
         for n in QUIET_NAMES:
@@ -226,7 +227,7 @@ def generate_dotcode(g, ns_filter, graph_mode, orientation, config, quiet=False)
     queue = [(group, config[group], tree_root) for group in config]
     while len(queue) > 0:
         (group, value, parent) = queue.pop(0)
-        branch = {'name': group, 'values': [], 'children': [], 'parent': parent}
+        branch = {'name': group, 'values': [], 'children': [], 'parent': parent['name']}
         parent['children'].append(branch)
 
         if type(value)==type([]):
@@ -255,6 +256,8 @@ def generate_dotcode(g, ns_filter, graph_mode, orientation, config, quiet=False)
     edges_str = ''
 
     for e in edges:
+        e.start = e.start.strip()
+        e.end = e.end.strip()
         if not e.start in node_map or not e.end in node_map:
             continue
         if node_map[e.start]['msg']:
@@ -294,9 +297,10 @@ def generate_dotcode(g, ns_filter, graph_mode, orientation, config, quiet=False)
         if e.label:
             ni = start['branch']
             while ni:
+                print ni
                 if e.label in ni['values']:
                     s_node = ni['name']
-                ni = ni['parent']
+                ni = node_map[ ni['parent'] ]
             ni = end['branch']
             while ni:
                 if e.label in ni['values']:
@@ -305,19 +309,23 @@ def generate_dotcode(g, ns_filter, graph_mode, orientation, config, quiet=False)
         else:
             nis = start['branch']
             startpath = []
-            # TODO
-            """if 'msg' in node_map[e.start]['groups']:
+
+            print e
+            print node_map[e.start]
+            print node_map[e.end]
+            
+            if node_map[e.start]['msg']:
                 msg = e.start
                 node = e.end
                 for g in node_map[node]['groups']:
                     if msg.strip() in groups[g]:
                         e_node = 'cluster' + g
-            elif 'msg' in node_map[e.end]['groups']:
+            elif node_map[e.end]['msg']:
                 msg = e.end
                 node = e.start
                 for g in node_map[node]['groups']:
                     if msg.strip() in groups[g]:
-                        s_node = 'cluster' + g"""
+                        s_node = 'cluster' + g
 
         key = (e.label, e_node, s_node)
         if key not in outputEdges or (not e_node and not s_node):
