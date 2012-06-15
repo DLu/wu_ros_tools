@@ -43,6 +43,10 @@ class Graph:
     def add_node(self, o):
         self.nodes[ o.name ] = o
 
+    def add_edge(self, e):
+        self.edges.append(e)
+        self.nodes[ e.start ].add_edge( e )
+
     def set_hierarchy(self, config, parent=None):
         for group, value in config.iteritems():
             if parent is not None:
@@ -78,11 +82,15 @@ class Graph:
         return s
 
     def is_valid_node(self, node):
-        if self.quiet:
-            return node.name not in QUIET_NAMES
+        if self.quiet and node.name in QUIET_NAMES:
+            return False
+        if node.is_msg and len(node.edges)==0:
+            return False
         return True
 
     def is_valid_edge(self, edge):
+        if not (edge.start in self.nodes and edge.end in self.nodes):
+            return False
         start = self.nodes[edge.start]
         end =   self.nodes[edge.end]
         if not (self.is_valid_node(start) and self.is_valid_node(end)):
@@ -98,16 +106,23 @@ class Graph:
         changes = True
         while changes:
             changes = False
-            enum = len(self.edges)
-            self.edges = [e for e in self.edges if self.is_valid_edge(e)]
-            if enum!=len(self.edges):
-                changes = True
+            v_edges = []
+
+            for e in self.edges:
+                if self.is_valid_edge(e):
+                    v_edges.append(e)
+                else:
+                    self.nodes[ e.start ].remove_edge(e)
+                    changes = True
+            self.edges = v_edges
+
             v_nodes = {}
             nnum = len(self.nodes)
             for edge in self.edges:
                 for name in [edge.start, edge.end]:
-                    if name not in v_nodes:
-                        v_nodes[name] = self.nodes[name]
+                    node = self.nodes[name]
+                    if name not in v_nodes and self.is_valid_node(node):
+                        v_nodes[name] = node
             self.nodes = v_nodes
             if len(self.nodes) != nnum:
                 changes = True
@@ -155,12 +170,20 @@ class Node:
         self.badness = 0
         self.is_msg = is_msg
         self.group = None
+        self.edges = {}
 
     def get_id(self):
         if self.is_msg:
             return safe_dotcode_name(self.name) + '_msg'
         else:
             return safe_dotcode_name(self.name)
+
+    def add_edge(self, e):
+        self.edges[e.end] = e
+
+    def remove_edge(self, e):
+        if e.end in self.edges:
+            del self.edges[e.end]
 
     def dot_code(self):
         s = '  %s '%self.get_id()
@@ -217,6 +240,9 @@ class Edge:
             s += ' [%s]'% ','.join(sub)
         return s
 
+    def __repr__(self):
+        return self.start + '->' + self.end
+
 
 
 def generate_dotcode(g, ns_filter, graph_mode, orientation, config, quiet=False):
@@ -249,7 +275,7 @@ def generate_dotcode(g, ns_filter, graph_mode, orientation, config, quiet=False)
         edges = g.nt_all_edges
 
     for edge in edges:
-        graph.edges.append( Edge(edge) )
+        graph.add_edge( Edge(edge) )
 
     for node_name, node in g.bad_nodes.iteritems():
         if node.type == rosgraph.impl.graph.BadNode.DEAD:
