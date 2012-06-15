@@ -64,6 +64,8 @@ class Graph:
                 self.set_hierarchy(value, group)
 
     def dot_code(self):
+        self.clean()
+
         if len(self.nodes)==0:
             nodes_str = '  empty;' 
         else:
@@ -91,6 +93,25 @@ class Graph:
 
     def same_parents(self, edge):
         return edge.start in self.parents and edge.end in self.parents and self.parents[edge.start]==self.parents[edge.end]
+
+    def clean(self):
+        changes = True
+        while changes:
+            changes = False
+            enum = len(self.edges)
+            self.edges = [e for e in self.edges if self.is_valid_edge(e)]
+            if enum!=len(self.edges):
+                changes = True
+            v_nodes = {}
+            nnum = len(self.nodes)
+            for edge in self.edges:
+                for name in [edge.start, edge.end]:
+                    if name not in v_nodes:
+                        v_nodes[name] = self.nodes[name]
+            self.nodes = v_nodes
+            if len(self.nodes) != nnum:
+                changes = True
+                
 
     def node_dot_code(self, parent=None, depth=1):
         s = ''
