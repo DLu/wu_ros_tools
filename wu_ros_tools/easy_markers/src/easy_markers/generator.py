@@ -44,10 +44,10 @@ def get_quat(orientation):
         quat.w = orientation[3]
     else:
         q2 = tf.transformations.quaternion_from_euler(orientation[0],orientation[1],orientation[2])
-        quat.w = q2.w
-        quat.x = q2.x
-        quat.y = q2.y
-        quat.z = q2.z
+        quat.x = q2[0]
+        quat.y = q2[1]
+        quat.z = q2[2]
+        quat.w = q2[3]
     return quat
         
 
