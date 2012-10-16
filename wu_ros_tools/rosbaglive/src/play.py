@@ -16,7 +16,6 @@ if __name__=='__main__':
     for arg in sys.argv[1:]:
         if ".bag" in arg:
             bagfn = arg
-            break
         elif arg=='-l':
             should_loop = True
         elif arg[0:2]=='-d':
