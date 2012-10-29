@@ -15,7 +15,8 @@
   <depend package="roslib"/>
 
   <depend package="rostopic"/>  
-  <depend package="rosnode"/>  
+  <depend package="rosnode"/>
+  <rosdep name="python-yaml"/>
 
   <platform os="ubuntu" version="9.04"/>
   <platform os="ubuntu" version="9.10"/>
