@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import roslib; roslib.load_manifest('easy_markers')
 import rospy
 from easy_markers.interactive import InteractiveGenerator
 

@@ -2,20 +2,14 @@
   <name>roswiki_node</name>
   <version>0.1.0</version>
   <description>Creates CS/NodeAPI clearsilver documentation from source code files. Typical usage: rosrun roswiki_node roswiki src/*</description>
-  <!-- <maintainer>David V. Lu!!</maintainer> -->
+  <author>David V. Lu!!</author>
+  <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
 
   <license>BSD</license>
 
   <url type="website">http://ros.org/wiki/roswiki_node</url>
   <!-- <url type="bugtracker"></url> -->
 
-  <author>David V. Lu!!</author>
-
-  <!-- <build_depend>rospy</build_depend> -->
-  <!-- <run_depend>rospy</run_depend> -->
-  <!-- <test_depend>rospy</test_depend> -->
-
-  <export>
-
-  </export>
+  <run_depend>rospy</run_depend>
+  <buildtool_depend>catkin</buildtool_depend>
 </package>

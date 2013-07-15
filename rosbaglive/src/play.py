@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import roslib; roslib.load_manifest('rosbaglive')
 import rospy
 import rosbag
 import sys

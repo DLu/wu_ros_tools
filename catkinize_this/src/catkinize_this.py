@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import roslib; roslib.load_manifest('catkinize_this')
 import rospy
 from xml.dom import minidom
 import subprocess

@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import roslib; roslib.load_manifest('manifest_cleaner')
 import rospy
 import xml.dom.minidom
 import os
