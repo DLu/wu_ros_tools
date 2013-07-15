@@ -1,5 +1,0 @@
-<launch>
-	<rosparam command="load" param="/rxgraph/config" file="$(find rxgraphplus)/pr2.yaml" />
-	<rosparam command="load" param="/rxgraph/config" file="$(find rxgraphplus)/navstack.yaml" />
-	<rosparam command="load" param="/rxgraph/config" file="$(find rxgraphplus)/arms.yaml" />
-</launch>
