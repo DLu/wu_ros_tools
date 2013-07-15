@@ -1,0 +1,30 @@
+<package>
+  <name>wu_ros_tools</name>
+  <version>0.1.0</version>
+  <description>A collection of tools for making a variety of generic ROS-related tasks easier.</description>
+  <!-- <maintainer>Maintained by David V. Lu!!</maintainer> -->
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/wu_ros_tools</url>
+  <!-- <url type="bugtracker"></url> -->
+
+  <author>Maintained by David V. Lu!!</author>
+
+
+  <run_depend>generic_dashboard</run_depend>
+  <run_depend>rxgraphplus</run_depend>
+  <run_depend>rosbaglive</run_depend>
+  <run_depend>roswiki_node</run_depend>
+  <run_depend>catkinize_this</run_depend>
+  <run_depend>easy_markers</run_depend>
+  <run_depend>manifest_cleaner</run_depend>
+
+
+
+
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
