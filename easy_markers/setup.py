@@ -1,10 +1,11 @@
 from distutils.core import setup
-from catkin_pkg.package import parse_package_for_distutils
+from catkin_pkg.python_setup import generate_distutils_setup
 
+package_info = genderate_distutils_setup(
+    packages=['easy_markers'],
+    package_dir={'easy_markers': 'src'},
+    requires=['rospy'])
+)
 
-package_info = parse_package_for_distutils()
-package_info['packages'] = ['easy_markers']
-package_info['package_dir'] = {'easy_markers': 'src'}
-package_info['install_requires'] = []
+setup(**setup_args)
 
-setup(**package_info)
