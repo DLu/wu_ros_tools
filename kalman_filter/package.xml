@@ -1,0 +1,16 @@
+<package>
+  <name>kalman_filter</name>
+  <version>0.1.1</version>
+  <description>kalman_filter</description>
+  <author>David V. Lu!!</author>
+  <maintainer>David V. Lu!!</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/kalman_filter</url>
+
+  <build_depend>rospy</build_depend>
+  <run_depend>rospy</run_depend>
+  <test_depend>rospy</test_depend>
+
+</package>
