@@ -3,7 +3,7 @@
   <version>0.1.1</version>
   <description>kalman_filter</description>
   <author>David V. Lu!!</author>
-  <maintainer>David V. Lu!!</maintainer>
+  <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
 
   <license>BSD</license>
 
@@ -11,6 +11,6 @@
 
   <build_depend>rospy</build_depend>
   <run_depend>rospy</run_depend>
-  <test_depend>rospy</test_depend>
+  <buildtool_depend>catkin</buildtool_depend>
 
 </package>
