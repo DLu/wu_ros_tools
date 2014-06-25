@@ -1,6 +1,6 @@
 <package>
   <name>kalman_filter</name>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
   <description>kalman_filter</description>
   <author>David V. Lu!!</author>
   <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
