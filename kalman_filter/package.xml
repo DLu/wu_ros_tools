@@ -1,7 +1,7 @@
 <package>
   <name>kalman_filter</name>
   <version>0.1.2</version>
-  <description>kalman_filter</description>
+  <description>Simple Kalman Filter in Python</description>
   <author>David V. Lu!!</author>
   <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
 
