@@ -13,6 +13,7 @@
   <run_depend>roswiki_node</run_depend>
   <run_depend>catkinize_this</run_depend>
   <run_depend>easy_markers</run_depend>
+  <run_depend>joy_listener</run_depend>
   <run_depend>manifest_cleaner</run_depend>
   <buildtool_depend>catkin</buildtool_depend>
 
