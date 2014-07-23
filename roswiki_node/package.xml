@@ -1,6 +1,6 @@
 <package>
   <name>roswiki_node</name>
-  <version>0.2.0</version>
+  <version>0.2.1</version>
   <description>Creates CS/NodeAPI clearsilver documentation from source code files. Typical usage: rosrun roswiki_node roswiki src/*</description>
   <author>David V. Lu!!</author>
   <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
