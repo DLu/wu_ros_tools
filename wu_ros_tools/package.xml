@@ -15,6 +15,7 @@
   <run_depend>easy_markers</run_depend>
   <run_depend>joy_listener</run_depend>
   <run_depend>manifest_cleaner</run_depend>
+  <run_depend>kalman_filter</run_depend>
   <buildtool_depend>catkin</buildtool_depend>
 
   <export>
