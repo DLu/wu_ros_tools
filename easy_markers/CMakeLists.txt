@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
                 rospy)
 catkin_python_setup()
 catkin_package(CATKIN_DEPENDS geometry_msgs visualization_msgs)
-install(DIRECTORY scripts/
+
+catkin_install_python(PROGRAMS scripts/interactive_marker_demo.py scripts/std_marker_demo.py
         DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
