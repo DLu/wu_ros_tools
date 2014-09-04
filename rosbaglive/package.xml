@@ -1,6 +1,6 @@
 <package>
   <name>rosbaglive</name>
-  <version>0.2.2</version>
+  <version>0.2.3</version>
   <description>Plays rosbags as though they were happening NOW.</description>
   <author>David V. Lu!!</author>
   <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
