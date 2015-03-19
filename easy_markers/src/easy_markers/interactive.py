@@ -3,6 +3,7 @@ import roslib; roslib.load_manifest('easy_markers')
 from easy_markers.generator import MarkerGenerator
 from interactive_markers.interactive_marker_server import *
 from interactive_markers.menu_handler import *
+from visualization_msgs.msg import InteractiveMarkerControl
 
 TYPEDATA = {
     'rotate_x': [1,1,0,0, InteractiveMarkerControl.ROTATE_AXIS],
