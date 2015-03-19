@@ -29,7 +29,7 @@ class InteractiveGenerator:
 
 
     def makeMarker( self, callback=None, marker=None, pose=[0,0,0], controls=[], 
-                    fixed=False, name=None, frame="/map", description="", imode=0):
+                    fixed=False, name=None, frame="/map", description="", imode=0, rot=[0,0,0,1]):
 
         if marker is None:
             marker = self.mg.marker()
@@ -46,6 +46,10 @@ class InteractiveGenerator:
         int_marker.pose.position.x = pose[0]
         int_marker.pose.position.y = pose[1]
         int_marker.pose.position.z = pose[2]
+        int_marker.pose.orientation.x = rot[0]
+        int_marker.pose.orientation.y = rot[1]
+        int_marker.pose.orientation.z = rot[2]
+        int_marker.pose.orientation.w = rot[3]
         int_marker.scale = 1
         int_marker.name = name
         int_marker.description = description
