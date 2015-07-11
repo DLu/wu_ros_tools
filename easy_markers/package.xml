@@ -1,6 +1,6 @@
 <package>
   <name>easy_markers</name>
-  <version>0.2.3</version>
+  <version>0.2.4</version>
   <description>Python library to assist in publishing markers easily</description>
   <author>David V. Lu!!</author>
   <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
