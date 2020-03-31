@@ -2,6 +2,7 @@ import tf
 import rospy
 from visualization_msgs.msg import Marker
 from geometry_msgs.msg import Point, Quaternion
+from std_msgs.msg import ColorRGBA
 
 
 def get_point(position, scale=1.0):
@@ -52,6 +53,29 @@ def get_quat(orientation):
     return quat
 
 
+def get_color(color):
+    rgba = ColorRGBA()
+    if color is None:
+        color = [1.0] * 4
+
+    if hasattr(color, 'x'):
+        rgba.r = getattr(color, 'r', 1.0)
+        rgba.g = getattr(color, 'g', 1.0)
+        rgba.b = getattr(color, 'b', 1.0)
+        rgba.a = getattr(color, 'a', 1.0)
+    elif len(color) == 4:
+        rgba.r = color[0]
+        rgba.g = color[1]
+        rgba.b = color[2]
+        rgba.a = color[3]
+    else:
+        rgba.r = color[0]
+        rgba.g = color[1]
+        rgba.b = color[2]
+        rgba.a = 1.0
+    return rgba
+
+
 class MarkerGenerator:
     def __init__(self):
         self.reset()
@@ -63,13 +87,13 @@ class MarkerGenerator:
         self.type = 0
         self.action = Marker.ADD
         self.scale = [1.0] * 3
-        self.color = [1.0] * 4
+        self.color = None
         self.points = []
         self.colors = []
         self.text = ''
         self.lifetime = 0.0
 
-    def marker(self, position=None, orientation=None, points=None, colors=None, scale=1.0):
+    def marker(self, position=None, orientation=None, points=None, colors=None, scale=1.0, color=None):
         mark = Marker()
         mark.header.stamp = rospy.Time.now()
         mark.header.frame_id = self.frame_id
@@ -80,10 +104,10 @@ class MarkerGenerator:
         mark.scale.x = self.scale[0]
         mark.scale.y = self.scale[1]
         mark.scale.z = self.scale[2]
-        mark.color.r = self.color[0]
-        mark.color.g = self.color[1]
-        mark.color.b = self.color[2]
-        mark.color.a = self.color[3]
+        if color:
+            mark.color = get_color(color)
+        else:
+            mark.color = get_color(self.color)
         mark.lifetime = rospy.Duration(self.lifetime)
 
         if points is not None:
