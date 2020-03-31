@@ -1,6 +1,14 @@
-import roslib; roslib.load_manifest('joy_listener')
 import rospy
 from sensor_msgs.msg import Joy
+
+
+PS3_BUTTONS = ['select', 'left_joy', 'right_joy', 'start',
+               'up', 'right', 'down', 'left',
+               'l2', 'r2', 'l1', 'r1',
+               'triangle', 'circle', 'x', 'square',
+               'ps3']
+WII_BUTTONS = ['1', '2', 'a', 'b', '+', '-', 'left', 'right', 'up', 'down', 'home']
+
 
 class JoyListener(dict):
     def __init__(self, wait_time=1.0, joy_topic='/joy'):
@@ -11,25 +19,23 @@ class JoyListener(dict):
 
     def joy_cb(self, msg):
         buttons = msg.buttons
-        now = rospy.Time.now() 
-        if (now- self.last_time ).to_sec() < self.wait_time:
+        now = rospy.Time.now()
+        if (now - self.last_time).to_sec() < self.wait_time:
             return
 
         for button, function in self.iteritems():
             if buttons[button]:
                 self.last_time = now
                 function()
-                break      
+                break
 
         if self.axes_cb:
             self.axes_cb(msg.axes)
 
-PS3_BUTTONS = ['select', 'left_joy', 'right_joy', 'start', 'up', 'right', 'down', 'left', 'l2', 'r2', 'l1', 'r1', 'triangle', 'circle', 'x', 'square', 'ps3']
+
 def PS3(name):
     return PS3_BUTTONS.index(name)
 
-
-WII_BUTTONS = ['1', '2', 'a', 'b', '+', '-', 'left', 'right', 'up', 'down', 'home']
 
 def WII(name):
     return WII_BUTTONS.index(name)

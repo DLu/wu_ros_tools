@@ -1,4 +1,4 @@
-<package>
+<package format="2">
   <name>wu_ros_tools</name>
   <version>0.2.4</version>
   <description>A collection of tools for making a variety of generic ROS-related tasks easier.</description>
@@ -7,15 +7,13 @@
   <license>BSD</license>
 
   <url type="website">http://ros.org/wiki/wu_ros_tools</url>
-  <!-- <url type="bugtracker"></url> -->
-
-  <run_depend>rosbaglive</run_depend>
-  <run_depend>easy_markers</run_depend>
-  <run_depend>joy_listener</run_depend>
-  <run_depend>kalman_filter</run_depend>
   <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>easy_markers</exec_depend>
+  <exec_depend>joy_listener</exec_depend>
+  <exec_depend>kalman_filter</exec_depend>
+  <exec_depend>rosbaglive</exec_depend>
 
   <export>
-    <metapackage/> 
+    <metapackage/>
   </export>
 </package>

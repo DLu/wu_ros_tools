@@ -6,7 +6,7 @@ import sys
 
 # F#@K IT WE'LL DO IT LIVE
 
-if __name__=='__main__':
+if __name__ == '__main__':
     rospy.init_node('rosbaglive')
     bagfn = None
     should_loop = False
@@ -15,11 +15,11 @@ if __name__=='__main__':
     for arg in sys.argv[1:]:
         if ".bag" in arg:
             bagfn = arg
-        elif arg=='-l':
+        elif arg == '-l':
             should_loop = True
-        elif arg[0:2]=='-d':
+        elif arg[0:2] == '-d':
             loop_sleep = float(arg[2:])
-            
+
     if bagfn is None:
         rospy.logerr("No Bag specified!")
         exit(1)
@@ -35,23 +35,23 @@ if __name__=='__main__':
             pub = rospy.Publisher(topic, type(msg), latch=('map' in topic))
             pubs[topic] = pub
 
-        if t!=last:
-            data.append( (t, []) )
+        if t != last:
+            data.append((t, []))
             last = t
-        data[-1][1].append( (topic, msg) )
+        data[-1][1].append((topic, msg))
     rospy.loginfo('Done read')
     start = rospy.Time.now()
     sim_start = None
     while not rospy.is_shutdown():
         for t, msgs in data:
-            now = rospy.Time.now()      
+            now = rospy.Time.now()
             if sim_start is None:
                 sim_start = t
             else:
                 real_time = now - start
                 sim_time = t - sim_start
                 if sim_time > real_time:
-                    rospy.sleep( sim_time - real_time)
+                    rospy.sleep(sim_time - real_time)
 
             for (topic, msg) in msgs:
                 if 'header' in dir(msg):
@@ -68,4 +68,3 @@ if __name__=='__main__':
 
         rospy.sleep(loop_sleep)
     bag.close()
-

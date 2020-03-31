@@ -1,8 +1,8 @@
-import roslib; roslib.load_manifest('easy_markers')
 import tf
 import rospy
-from visualization_msgs.msg import Marker, MarkerArray
+from visualization_msgs.msg import Marker
 from geometry_msgs.msg import Point, Quaternion
+
 
 def get_point(position, scale=1.0):
     pt = Point()
@@ -24,7 +24,8 @@ def get_point(position, scale=1.0):
     pt.z /= scale
 
     return pt
-    
+
+
 def get_quat(orientation):
     quat = Quaternion()
     if orientation is None:
@@ -37,19 +38,19 @@ def get_quat(orientation):
         quat.x = orientation.x
         quat.y = orientation.y
         quat.z = orientation.z
-    elif len(orientation)==4:
+    elif len(orientation) == 4:
         quat.x = orientation[0]
         quat.y = orientation[1]
         quat.z = orientation[2]
         quat.w = orientation[3]
     else:
-        q2 = tf.transformations.quaternion_from_euler(orientation[0],orientation[1],orientation[2])
+        q2 = tf.transformations.quaternion_from_euler(orientation[0], orientation[1], orientation[2])
         quat.x = q2[0]
         quat.y = q2[1]
         quat.z = q2[2]
         quat.w = q2[3]
     return quat
-        
+
 
 class MarkerGenerator:
     def __init__(self):
@@ -61,11 +62,11 @@ class MarkerGenerator:
         self.ns = 'marker'
         self.type = 0
         self.action = Marker.ADD
-        self.scale = [1.0] *3
+        self.scale = [1.0] * 3
         self.color = [1.0] * 4
         self.points = []
         self.colors = []
-        self.text = ''       
+        self.text = ''
         self.lifetime = 0.0
 
     def marker(self, position=None, orientation=None, points=None, colors=None, scale=1.0):
@@ -95,8 +96,8 @@ class MarkerGenerator:
         if position is not None or orientation is not None:
             mark.pose.position = get_point(position, scale)
             mark.pose.orientation = get_quat(orientation)
+        else:
+            mark.pose.orientation.w = 1.0
 
-           
-
-        self.counter+=1
+        self.counter += 1
         return mark
