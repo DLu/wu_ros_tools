@@ -14,5 +14,5 @@
   <depend>rospy</depend>
   <depend>tf</depend>
   <depend>visualization_msgs</depend>
-
+  <test_depend>roslint</test_depend>
 </package>
