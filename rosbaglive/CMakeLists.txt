@@ -1,7 +1,9 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(rosbaglive)
-find_package(catkin REQUIRED COMPONENTS rospy rosbag)
-catkin_package()
+find_package(catkin REQUIRED COMPONENTS rosbag rospy)
+catkin_package(
+    CATKIN_DEPENDS rosbag rospy
+)
 
 if(CATKIN_ENABLE_TESTING)
   find_package(catkin REQUIRED COMPONENTS roslint)
@@ -10,4 +12,5 @@ if(CATKIN_ENABLE_TESTING)
 endif()
 
 catkin_install_python(PROGRAMS scripts/play.py
-        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)

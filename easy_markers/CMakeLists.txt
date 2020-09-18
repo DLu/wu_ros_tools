@@ -1,16 +1,17 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(easy_markers)
 find_package(catkin REQUIRED COMPONENTS
-                interactive_markers
-                roslib
-                geometry_msgs
-                visualization_msgs
-                rospy
-                tf
+    geometry_msgs
+    interactive_markers
+    roslib
+    rospy
+    std_msgs
+    tf
+    visualization_msgs
 )
 catkin_python_setup()
 catkin_package(
-    CATKIN_DEPENDS geometry_msgs interactive_markers rospy tf visualization_msgs
+    CATKIN_DEPENDS geometry_msgs interactive_markers rospy std_msgs tf visualization_msgs
 )
 
 if(CATKIN_ENABLE_TESTING)
@@ -20,5 +21,13 @@ if(CATKIN_ENABLE_TESTING)
   roslint_add_test()
 endif()
 
+install(FILES config/interactive.rviz config/std.rviz
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
+)
+install(FILES launch/interactive_demo.launch launch/std_demo.launch
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+)
+
 catkin_install_python(PROGRAMS scripts/interactive_marker_demo.py scripts/std_marker_demo.py
-        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)

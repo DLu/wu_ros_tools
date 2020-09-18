@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(joy_listener)
 find_package(catkin REQUIRED COMPONENTS
-                rospy
-                sensor_msgs
+    rospy
+    sensor_msgs
 )
 catkin_python_setup()
 catkin_package(
