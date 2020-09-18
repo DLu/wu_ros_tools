@@ -1,0 +1,28 @@
+Panels:
+  - Class: rviz/Displays
+    Name: Displays
+  - Class: rviz/Views
+Visualization Manager:
+  Displays:
+    - Class: rviz/Grid
+      Name: Grid
+      Value: true
+    - Class: rviz/Marker
+      Marker Topic: /visualization_marker
+      Name: Marker
+      Value: true
+  Tools:
+    - Class: rviz/Interact
+    - Class: rviz/MoveCamera
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 14
+      Focal Point:
+        X: -1
+        Y: 4
+        Z: 1
+      Name: Current View
+      Pitch: 0.45
+      Yaw: 6.12

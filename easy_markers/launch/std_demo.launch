@@ -1,0 +1,4 @@
+<launch>
+    <node name="std_marker_demo" pkg="easy_markers" type="std_marker_demo.py" output="screen" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find easy_markers)/config/std.rviz" />
+</launch>
