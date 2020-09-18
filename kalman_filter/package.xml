@@ -1,6 +1,6 @@
 <package format="2">
   <name>kalman_filter</name>
-  <version>0.2.6</version>
+  <version>0.3.0</version>
   <description>Simple Kalman Filter in Python</description>
   <author>David V. Lu!!</author>
   <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
